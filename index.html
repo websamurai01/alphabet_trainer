@@ -105,7 +105,7 @@
   }
   main.active { display: flex; }
 
-  /* ===== Саб-табы ===== */
+  
   .subtabs {
     display: flex; gap: 4px;
     background: var(--card2); padding: 4px;
@@ -133,7 +133,7 @@
     display: flex; align-items: center; justify-content: center;
   }
 
-  /* ===== Статистика ===== */
+  
   .stats-row {
     display: grid; grid-template-columns: repeat(3, 1fr);
     gap: 8px; margin-bottom: 12px;
@@ -152,7 +152,7 @@
     text-transform: uppercase; letter-spacing: .4px; margin-top: 2px;
   }
 
-  /* ===== Настройки таймера ===== */
+  
   .settings {
     background: var(--card2); border: 1px solid var(--border);
     border-radius: 18px; padding: 12px 14px 12px; margin-bottom: 14px;
@@ -188,7 +188,7 @@
     background: rgba(200, 101, 77, .08);
   }
 
-  /* ===== Карточка вопроса ===== */
+  
   .quiz-card {
     position: relative;
     background: var(--card); border: 1px solid var(--border);
@@ -265,7 +265,7 @@
     text-align: center; margin: 7px 0 12px; min-height: 16px;
   }
 
-  /* ===== HUD алфавита ===== */
+  
   .hud {
     display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;
     padding: 10px; background: var(--card2);
@@ -293,7 +293,7 @@
     font-size: 12px; font-weight: 700; color: var(--muted);
   }
 
-  /* ===== Экран алфавита ===== */
+  
   .dict-selected-info {
     text-align: center; font-size: 12px; font-weight: 700; color: var(--accent2);
     padding: 9px 12px; background: rgba(45, 125, 140, .07);
@@ -348,7 +348,7 @@
     text-align: center; line-height: 1.6; margin-top: 18px;
   }
 
-  /* ===== Подвал / тост ===== */
+  
   footer { padding: 10px 14px 18px; text-align: center; }
   .reset-btn {
     background: none; border: none; color: #b3a48a;
@@ -460,9 +460,7 @@
 (function () {
   'use strict';
 
-  /* ============================================================
-     ДАННЫЕ АЛФАВИТА
-     ============================================================ */
+  
   const BASIC_LETTERS = [
     { key:'alef', glyph:'א', name:'алеф', nameEn:'alef',
       aliases:['алеф'], aliasesEn:['alef','aleph'],
@@ -486,7 +484,7 @@
       hebName:'הֵא', note:'лёгкий выдох', noteEn:'a light breath' },
     { key:'vav', glyph:'ו', name:'вав', nameEn:'vav',
       aliases:['вав'], aliasesEn:['vav','waw'],
-      sound:'в / у', soundEn:'v / u', soundAliases:['в','у'], soundAliasesEn:['v','u'],
+      sound:'в / у', soundEn:'v / u', soundAliases:['в','у','о'], soundAliasesEn:['v','u','o'],
       hebName:'וָו', note:'может читаться как у', noteEn:'can also sound like u' },
     { key:'zayin', glyph:'ז', name:'заин', nameEn:'zayin',
       aliases:['заин','зайн','зайин'], aliasesEn:['zayin','zain','zayn'],
@@ -581,9 +579,7 @@
   const BY_KEY = {};
   ALL_LETTERS.forEach(function (l) { BY_KEY[l.key] = l; });
 
-  /* ============================================================
-     СОХРАНЕНИЕ
-     ============================================================ */
+  
   const LS_KEY = 'hebrew_alphabet_trainer_v1';
   const DEFAULT_STORE = {
     settings: { timeLimit: 4, mode: 'name', finals: false, sort: 'default', lang: 'ru' },
@@ -613,9 +609,7 @@
     try { localStorage.setItem(LS_KEY, JSON.stringify(store)); } catch (e) {}
   }
 
-  /* ============================================================
-     DOM
-     ============================================================ */
+  
   const $ = function (id) { return document.getElementById(id); };
   const screenQuiz = $('screen-quiz');
   const screenAlpha = $('screen-alpha');
@@ -650,9 +644,7 @@
   const progressBar = $('progress-bar');
   const flagBtns = Array.prototype.slice.call(document.querySelectorAll('.flag-btn'));
 
-  /* ============================================================
-     СОСТОЯНИЕ КВИЗА
-     ============================================================ */
+  
   const session = { score: 0, streak: 0, correct: 0, total: 0 };
   let current = null;
   let locked = false;
@@ -664,9 +656,7 @@
   let timers = [];
   let toastTimer = null;
 
-  /* ============================================================
-     ЛОКАЛИЗАЦИЯ (RU / EN)
-     ============================================================ */
+  
   const I18N = {
     ru: {
       appTitle: 'Иврит · Алфавит',
@@ -824,9 +814,7 @@
     return 'var(--danger)';
   }
 
-  /* ============================================================
-     БИПЫ И ВИБРАЦИЯ
-     ============================================================ */
+  
   let actx = null;
   function beep(ok) {
     try {
@@ -865,9 +853,7 @@
     toastTimer = setTimeout(function () { toastEl.classList.remove('show'); }, 1700);
   }
 
-  /* ============================================================
-     ТАЙМЕР
-     ============================================================ */
+  
   function setTimerUI(left) {
     const limit = store.settings.timeLimit;
     const ratio = limit > 0 ? Math.max(0, Math.min(1, left / limit)) : 0;
@@ -912,9 +898,7 @@
     rafId = requestAnimationFrame(tickTimer);
   }
 
-  /* ============================================================
-     РАУНДЫ
-     ============================================================ */
+  
   function pickKey() {
     const p = pool();
     if (p.length === 0) return null;
@@ -1056,9 +1040,7 @@
     if (!isPrefix) handleWrong();
   }
 
-  /* ============================================================
-     UI: СТАТИСТИКА / HUD / ЭКРАНЫ
-     ============================================================ */
+  
   function updateStatsUI() {
     statScore.textContent = String(session.score);
     statStreak.textContent = String(session.streak);
@@ -1233,9 +1215,7 @@
     sortBtn.classList.toggle('active-sort', store.settings.sort !== 'default');
   }
 
-  /* ============================================================
-     ДЕЙСТВИЯ ПОЛЬЗОВАТЕЛЯ
-     ============================================================ */
+  
   function switchTab(name) {
     const quiz = name === 'quiz';
     tabQuiz.classList.toggle('active', quiz);
@@ -1330,9 +1310,7 @@
     showToast(t('resetToast'));
   }
 
-  /* ============================================================
-     СОБЫТИЯ
-     ============================================================ */
+  
   tabQuiz.addEventListener('click', function () { switchTab('quiz'); });
   tabAlpha.addEventListener('click', function () { switchTab('alpha'); });
 
@@ -1374,7 +1352,7 @@
 
   resetBtn.addEventListener('click', resetProgress);
 
-  /* Глобальный ввод: фокус всегда возвращается в поле */
+  
   window.addEventListener('keydown', function (e) {
     if (e.ctrlKey || e.metaKey || e.altKey) return;
     if (e.key.length !== 1) return;
@@ -1403,7 +1381,7 @@
     }
   });
 
-  /* Защита от двойного тапа */
+  
   let lastTouchEnd = 0;
   document.addEventListener('touchend', function (e) {
     const now = Date.now();
@@ -1411,9 +1389,7 @@
     lastTouchEnd = now;
   }, { passive: false });
 
-  /* ============================================================
-     ИНИЦИАЛИЗАЦИЯ
-     ============================================================ */
+  
   buildHud();
   applyLanguage();
   updateHeader();
