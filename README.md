@@ -8,7 +8,7 @@ A single-file, offline trainer for learning the names and sounds of the Hebrew l
 
 ## Quick start
 
-1. [Open the app](alphabet_trainer.html) in a modern browser.
+1. [Open the app](https://websamurai01.github.io/alphabet_trainer)
 2. The app starts in **untimed mode** by default, so you can answer at your own pace.
 3. Type the letter name or sound into the field below the large letter card.
 4. Answers are checked instantly; pressing Enter is optional.
