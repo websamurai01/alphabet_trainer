@@ -30,7 +30,7 @@ The file can also be hosted on any static web server.
 **Sounds**
 - The app shows a letter; type its sound.
 - English mode examples: `b`, `sh`, `ts`.
-- For letters with two readings, either reading is accepted:
+- For letters with two readings, either reading is accepted.
 - In English mode, ח and כ also accept `kh` and `ch`.
 
 ### Answer validation
