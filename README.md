@@ -1,6 +1,6 @@
 # Hebrew · Alphabet — Letter Trainer
 
-[Open the app](https://websamurai01.github.io/alphabet_trainer) · [Русская версия](README_alphabet_trainer.ru.md)
+[Open the app](https://websamurai01.github.io/alphabet_trainer) · [Русская версия](README_RU.md)
 
 A single-file, offline trainer for learning the names and sounds of the Hebrew letters. It runs in a modern browser with no installation, build step, or internet connection.
 
