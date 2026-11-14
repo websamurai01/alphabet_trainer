@@ -1,6 +1,6 @@
 # Hebrew · Alphabet — Letter Trainer
 
-[Open the app](websamurai01.github.io/alphabet_trainer) · [Русская версия](README_alphabet_trainer.ru.md)
+[Open the app](https://websamurai01.github.io/alphabet_trainer) · [Русская версия](README_alphabet_trainer.ru.md)
 
 A single-file, offline trainer for learning the names and sounds of the Hebrew letters. It runs in a modern browser with no installation, build step, or internet connection.
 
@@ -80,7 +80,7 @@ A compact strip of letters sits below the input:
 ### Final forms
 
 - **Finals: off / Finals: on** adds the five final forms (ך ם ן ף ץ) to the quiz and HUD.
-- In name mode, use their full names: `kaf sofit`, `mem sofit`, `nun sofit`, `pe sofit`, `tsadi sofit`. Russian equivalents such as `каф софит` are also accepted.
+- In name mode, use their full names: `kaf sofit`, `mem sofit`, `nun sofit`, `pe sofit`, `tsadi sofit`.
 - In sound mode they accept the same sounds as their regular forms.
 
 ---
