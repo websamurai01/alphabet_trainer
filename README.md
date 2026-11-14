@@ -31,13 +31,6 @@ The file can also be hosted on any static web server.
 - The app shows a letter; type its sound.
 - English mode examples: `b`, `sh`, `ts`.
 - For letters with two readings, either reading is accepted:
-  - ב — `б` / `в` (b / v)
-  - כ — `к` / `х` (k / kh)
-  - פ — `п` / `ф` (p / f)
-  - ש — `ш` / `с` (sh / s)
-  - ו — `в` / `у` (v / u)
-  - י — `й` / `и` (y / i)
-  - א and ע — `а` / `э` (a / e)
 - In English mode, ח and כ also accept `kh` and `ch`.
 
 ### Answer validation
