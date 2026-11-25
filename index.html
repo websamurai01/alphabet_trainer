@@ -7,6 +7,12 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <title>Иврит · Алфавит</title>
+<!-- ===== ШРИФТЫ (Google Fonts). Имена здесь и в --hebrew / --hebrew-cursive ниже должны совпадать ===== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Hebrew&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gveret+Levin&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playpen+Sans+Hebrew&display=swap">
 <script>
 (function(){var t=null;try{t=localStorage.getItem('hebrew_theme_v1');}catch(e){}if(t!=='dark'&&t!=='light'){t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}document.documentElement.setAttribute('data-theme',t);})();
 </script>
@@ -41,8 +47,9 @@
     --toast-text: #ffffff;
     --shadow: 0 8px 28px rgba(150, 110, 60, .14);
     --shadow-soft: 0 4px 14px rgba(150, 110, 60, .07);
-    --hebrew: "Frank Ruhl Libre", "David Libre", "Noto Serif Hebrew", "Noto Sans Hebrew",
+    --hebrew: "Noto Serif Hebrew", "Frank Ruhl Libre", "David Libre", "Noto Serif Hebrew", "Noto Sans Hebrew",
               "Times New Roman", "DejaVu Sans", serif;
+    --hebrew-cursive: "Gveret Levin", var(--hebrew); /* после теста на font_test.html можно заменить на "Playpen Sans Hebrew" */
   }
   html[data-theme="dark"] {
     color-scheme: dark;
@@ -246,7 +253,8 @@
     background: linear-gradient(90deg, var(--olive), var(--accent2));
     transition: width .1s linear, background .2s;
   }
-  .settings-btns { display: flex; gap: 6px; margin-top: 10px; }
+  .settings-btns { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .settings-btns .toggle-btn { flex: 1 1 30%; }
   .timer-note {
     font-size: 11px; font-weight: 600; color: var(--muted);
     text-align: center; margin-top: 8px; line-height: 1.4;
@@ -258,6 +266,7 @@
     transition: all .2s; min-height: 36px;
   }
   .toggle-btn:active { transform: scale(.96); }
+  .toggle-btn:disabled { opacity: .45; cursor: not-allowed; }
   .toggle-btn.on, .toggle-btn.active-sort {
     border-color: var(--accent); color: var(--accent);
     background: rgba(200, 101, 77, .08);
@@ -280,6 +289,22 @@
     transition: color .2s;
     user-select: none;
   }
+  html.script-cursive .quiz-glyph,
+  html.script-cursive .hud-letter,
+  html.script-cursive .a-glyph,
+  html.script-cursive .nikud-sign {
+    font-family: var(--hebrew-cursive);
+  }
+  html.script-cursive .quiz-glyph {
+    font-size: clamp(84px, 28vw, 132px);
+    line-height: 1.35;
+    padding-bottom: .08em;
+  }
+  html.script-cursive .hud-letter { font-size: 17px; line-height: 1.3; }
+  html.script-cursive .a-glyph { font-size: 32px; line-height: 1.35; }
+  html.nikud-on .quiz-glyph { line-height: 1.5; padding: .08em 0 .18em; }
+  html.nikud-on .hud-letter { line-height: 1.4; }
+  html.nikud-on .a-glyph { line-height: 1.5; }
   .quiz-glyph.glyph-in { animation: glyphIn .3s cubic-bezier(.22,1,.36,1); }
   @keyframes glyphIn {
     from { opacity: .2; transform: scale(.86); }
@@ -321,6 +346,12 @@
   }
   .audio-btn:active { transform: scale(.94); }
   .audio-btn:hover { border-color: var(--accent); background: var(--input-focus); }
+  .audio-btn.check-btn {
+    background: linear-gradient(135deg, var(--accent-btn), var(--accent-grad));
+    color: #fff; border-color: transparent;
+    box-shadow: 0 4px 14px rgba(200, 101, 77, .3);
+  }
+  .audio-btn.check-btn:hover { border-color: transparent; background: linear-gradient(135deg, var(--accent-btn), var(--accent-grad)); }
 
   .quiz-input {
     width: 100%; text-align: center; font-size: 22px; font-weight: 800;
@@ -385,6 +416,7 @@
   }
   .dict-btn:active { transform: scale(.95); }
   .dict-btn:hover { border-color: var(--accent2); background: var(--input-focus); }
+  .dict-btn:disabled { opacity: .45; cursor: not-allowed; }
   .dict-btn.active-sort { border-color: var(--accent); color: var(--accent); background: rgba(200,101,77,.08); }
 
   .alpha-section-title {
@@ -423,6 +455,21 @@
     font-size: 12px; color: var(--muted); font-weight: 600;
     text-align: center; line-height: 1.6; margin-top: 18px;
   }
+  .nikud-table {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+    gap: 6px;
+  }
+  .nikud-cell {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 6px 4px; text-align: center;
+    box-shadow: var(--shadow-soft);
+  }
+  .nikud-sign {
+    font-family: var(--hebrew); font-size: 26px; line-height: 1.5;
+    color: var(--text); direction: rtl;
+  }
+  .nikud-name { font-size: 10px; font-weight: 800; color: var(--accent); line-height: 1.2; }
+  .nikud-sound { font-size: 10px; font-weight: 600; color: var(--muted); line-height: 1.2; }
 
   
   footer { padding: 10px 14px 18px; text-align: center; }
@@ -492,8 +539,12 @@
     <div class="timer-note" id="timer-note" data-i18n="timerNote">Без таймера — отвечай в своём темпе</div>
     <div class="settings-btns">
       <button class="toggle-btn" id="btn-finals" type="button">Софитные: выкл</button>
+      <button class="toggle-btn" id="btn-script" type="button">Шрифт: печатный</button>
+      <button class="toggle-btn" id="btn-nikud" type="button">Никуд: выкл</button>
       <button class="toggle-btn" id="btn-timer" type="button">Таймер: выкл</button>
+      <button class="toggle-btn" id="btn-autocheck" type="button">Автопринятие: вкл</button>
     </div>
+    <div class="timer-note" id="nikud-note" style="display:none;"></div>
   </div>
 
   <div class="quiz-card" id="quiz-card">
@@ -503,6 +554,7 @@
 
   <div class="quiz-actions">
     <button class="audio-btn" id="btn-skip" type="button" data-i18n="showAnswer">Показать ответ</button>
+    <button class="audio-btn check-btn" id="btn-check" type="button" data-i18n="checkAnswer" style="display:none;">Проверить</button>
   </div>
 
   <input id="quiz-input" class="quiz-input" type="text"
@@ -527,6 +579,9 @@
 
   <div class="alpha-section-title"><span data-i18n="finalForms">5 софитных форм</span> <span class="title-note" data-i18n="titleNote">(в конце слова)</span></div>
   <div class="alpha-grid" id="alpha-grid-finals"></div>
+
+  <div class="alpha-section-title" data-i18n="nikudTableTitle">Огласовки</div>
+  <div class="nikud-table" id="nikud-table"></div>
 
   <div class="alpha-tip" data-i18n="alphaTip">Цвет рамки показывает точность твоих ответов по этой букве.</div>
 </main>
@@ -660,14 +715,52 @@
   const BY_KEY = {};
   ALL_LETTERS.forEach(function (l) { BY_KEY[l.key] = l; });
 
+  const CONSONANT = {
+    alef:   { ru: '',  en: [] },
+    bet:    { ru: 'б', en: ['b'], noDageshRu: 'в', noDageshEn: ['v'] },
+    gimel:  { ru: 'г', en: ['g'] },
+    dalet:  { ru: 'д', en: ['d'] },
+    hey:    { ru: 'х', en: ['h'] },
+    vav:    { ru: 'в', en: ['v'] },
+    zayin:  { ru: 'з', en: ['z'] },
+    khet:   { ru: 'х', en: ['kh', 'ch', 'h'] },
+    tet:    { ru: 'т', en: ['t'] },
+    yod:    { ru: 'й', en: ['y'] },
+    kaf:    { ru: 'к', en: ['k'], noDageshRu: 'х', noDageshEn: ['kh', 'ch'] },
+    lamed:  { ru: 'л', en: ['l'] },
+    mem:    { ru: 'м', en: ['m'] },
+    nun:    { ru: 'н', en: ['n'] },
+    samekh: { ru: 'с', en: ['s'] },
+    ayin:   { ru: '',  en: [] },
+    pe:     { ru: 'п', en: ['p'], noDageshRu: 'ф', noDageshEn: ['f'] },
+    tsadi:  { ru: 'ц', en: ['ts', 'tz'] },
+    qof:    { ru: 'к', en: ['k', 'q'] },
+    resh:   { ru: 'р', en: ['r'] },
+    shin:   { ru: 'ш', en: ['sh'], sinRu: 'с', sinEn: ['s'] },
+    tav:    { ru: 'т', en: ['t'] }
+  };
+
+  const NIKUD_VOWELS = [
+    { key: 'patah',  char: '\u05B7', ru: 'а', en: ['a'], nameRu: 'патах',  nameEn: 'patah' },
+    { key: 'qamats', char: '\u05B8', ru: 'а', en: ['a'], nameRu: 'камац',  nameEn: 'qamats' },
+    { key: 'tsere',  char: '\u05B5', ru: 'е', en: ['e'], nameRu: 'цере',   nameEn: 'tsere' },
+    { key: 'segol',  char: '\u05B6', ru: 'е', en: ['e'], nameRu: 'сэголь', nameEn: 'segol' },
+    { key: 'hiriq',  char: '\u05B4', ru: 'и', en: ['i'], nameRu: 'хирик',  nameEn: 'hiriq' },
+    { key: 'holam',  char: '\u05B9', ru: 'о', en: ['o'], nameRu: 'холам',  nameEn: 'holam' },
+    { key: 'qubuts', char: '\u05BB', ru: 'у', en: ['u'], nameRu: 'кубуц',  nameEn: 'qubuts' }
+  ];
+
+  const YOD_FAMILIAR = { 'а': 'я', 'е': 'е', 'и': 'и', 'о': 'ё', 'у': 'ю' };
+
   
   const LS_KEY = 'hebrew_alphabet_trainer_v1';
   const LS_THEME = 'hebrew_theme_v1';
   const DEFAULT_STORE = {
-    settings: { timeLimit: 4, mode: 'name', finals: false, timer: false, sort: 'default', lang: 'ru' },
+    settings: { timeLimit: 4, mode: 'name', finals: false, timer: false, sort: 'default', lang: 'ru', script: 'print', nikud: false, autoCheck: true },
     highScore: 0,
     bestStreak: 0,
-    letters: {}
+    letters: {},
+    lettersCursive: {}
   };
 
   function loadStore() {
@@ -679,7 +772,8 @@
         settings: Object.assign({}, DEFAULT_STORE.settings, obj.settings || {}),
         highScore: Number(obj.highScore) || 0,
         bestStreak: Number(obj.bestStreak) || 0,
-        letters: obj.letters && typeof obj.letters === 'object' ? obj.letters : {}
+        letters: obj.letters && typeof obj.letters === 'object' ? obj.letters : {},
+        lettersCursive: obj.lettersCursive && typeof obj.lettersCursive === 'object' ? obj.lettersCursive : {}
       };
     } catch (e) {
       return JSON.parse(JSON.stringify(DEFAULT_STORE));
@@ -713,12 +807,17 @@
   const themeBtn = $('btn-theme');
   const timerFill = $('timer-fill');
   const finalsBtn = $('btn-finals');
+  const scriptBtn = $('btn-script');
+  const nikudBtn = $('btn-nikud');
+  const nikudNote = $('nikud-note');
   const quizCard = $('quiz-card');
   const quizGlyph = $('quiz-glyph');
   const quizAnswer = $('quiz-answer');
   const quizInput = $('quiz-input');
   const inputHint = $('input-hint');
   const skipBtn = $('btn-skip');
+  const autoCheckBtn = $('btn-autocheck');
+  const checkBtn = $('btn-check');
   const hud = $('hud');
   const sessionRate = $('session-rate');
   const alphaInfo = $('alpha-info');
@@ -734,6 +833,7 @@
   
   const session = { score: 0, streak: 0, correct: 0, total: 0 };
   let current = null;
+  let currentSyllable = null;
   let locked = false;
   let srs = [];
   let rafId = 0;
@@ -786,7 +886,24 @@
       resetConfirm: 'Сбросить весь прогресс: рекорды и статистику букв?',
       resetToast: 'Прогресс сброшен',
       streakToast: '🔥 Серия {n}!',
-      soundPrefix: 'звук: '
+      soundPrefix: 'звук: ',
+      scriptPrint: 'Шрифт: печатный',
+      scriptCursive: 'Шрифт: прописной',
+      nikudOff: 'Никуд: выкл',
+      nikudOn: 'Никуд: вкл',
+      nikudNameHint: 'Никуд доступен только в режиме «Звуки»',
+      finalsNikudHint: 'С никудом софитные формы недоступны',
+      placeholderSyllable: 'слог по-русски…',
+      inputHintSyllable: '⌨️ Согласная + гласная · Enter не нужен',
+      modeHintSyllable: 'Печатай слог по-русски — например «ба», «ми»',
+      modeHintManualName: 'Печатай имя буквы по-русски — затем Enter или «Проверить»',
+      modeHintManualSound: 'Печатай звук буквы по-русски — затем Enter или «Проверить»',
+      modeHintManualSyllable: 'Печатай слог по-русски — затем Enter или «Проверить»',
+      inputHintManual: '⌨️ Нажми Enter или «Проверить»',
+      autoCheckOn: 'Автопринятие: вкл',
+      autoCheckOff: 'Автопринятие: выкл',
+      checkAnswer: 'Проверить',
+      nikudTableTitle: 'Огласовки'
     },
     en: {
       appTitle: 'Hebrew · Alphabet',
@@ -829,7 +946,24 @@
       resetConfirm: 'Reset all progress: records and letter stats?',
       resetToast: 'Progress reset',
       streakToast: '🔥 Streak {n}!',
-      soundPrefix: 'sound: '
+      soundPrefix: 'sound: ',
+      scriptPrint: 'Script: print',
+      scriptCursive: 'Script: cursive',
+      nikudOff: 'Niqqud: off',
+      nikudOn: 'Niqqud: on',
+      nikudNameHint: 'Niqqud is available in “Sounds” mode only',
+      finalsNikudHint: 'Final forms are unavailable with niqqud',
+      placeholderSyllable: 'syllable in Latin letters…',
+      inputHintSyllable: '⌨️ Consonant + vowel · no Enter needed',
+      modeHintSyllable: 'Type the syllable in Latin letters — e.g. “ba”, “mi”',
+      modeHintManualName: 'Type the letter name in Latin letters — then press Enter or “Check”',
+      modeHintManualSound: 'Type the letter sound in Latin letters — then press Enter or “Check”',
+      modeHintManualSyllable: 'Type the syllable in Latin letters — then press Enter or “Check”',
+      inputHintManual: '⌨️ Press Enter or “Check”',
+      autoCheckOn: 'Auto-accept: on',
+      autoCheckOff: 'Auto-accept: off',
+      checkAnswer: 'Check',
+      nikudTableTitle: 'Vowel points'
     }
   };
 
@@ -853,6 +987,81 @@
   function locAliases(l) { return lang() === 'en' ? l.aliasesEn : l.aliases; }
   function locSoundAliases(l) { return lang() === 'en' ? l.soundAliasesEn : l.soundAliases; }
 
+  function nikudActive() {
+    return !!store.settings.nikud && store.settings.mode === 'sound';
+  }
+  function lettersBucket() {
+    return store.settings.script === 'cursive' ? store.lettersCursive : store.letters;
+  }
+  function normNikud(s) {
+    return String(s)
+      .toLowerCase()
+      .replace(/э/g, 'е')
+      .replace(/[\s\-'’׳".,!?;:()]/g, '');
+  }
+  function syllableAnswers(syl) {
+    const en = lang() === 'en';
+    const out = [];
+    if (!syl) return out;
+    if (syl.letterKey === 'yod') {
+      if (en) {
+        out.push('y' + syl.vowelEn);
+      } else {
+        out.push('й' + syl.vowelRu);
+        const fam = YOD_FAMILIAR[syl.vowelRu];
+        if (fam) out.push(fam);
+      }
+      return out;
+    }
+    if (!syl.consRu) {
+      if (en) out.push(syl.vowelEn);
+      else out.push(syl.vowelRu);
+      return out;
+    }
+    if (en) {
+      syl.consEn.forEach(function (c) { out.push(c + syl.vowelEn); });
+    } else {
+      out.push(syl.consRu + syl.vowelRu);
+    }
+    return out;
+  }
+  function makeSyllable(letter) {
+    const c = CONSONANT[letter.key] || { ru: '', en: [] };
+    const vowel = NIKUD_VOWELS[Math.floor(Math.random() * NIKUD_VOWELS.length)];
+    let dagesh = false;
+    let shinDot = null;
+    let consRu = c.ru;
+    let consEn = c.en.slice();
+    if (letter.key === 'bet' || letter.key === 'kaf' || letter.key === 'pe') {
+      dagesh = Math.random() < 0.5;
+      if (!dagesh) {
+        consRu = c.noDageshRu;
+        consEn = c.noDageshEn.slice();
+      }
+    } else if (letter.key === 'shin') {
+      shinDot = Math.random() < 0.5 ? 'right' : 'left';
+      if (shinDot === 'left') {
+        consRu = c.sinRu;
+        consEn = c.sinEn.slice();
+      }
+    }
+    let text = letter.glyph;
+    if (shinDot === 'right') text += '\u05C1';
+    else if (shinDot === 'left') text += '\u05C2';
+    if (dagesh) text += '\u05BC';
+    text += vowel.char;
+    return {
+      letterKey: letter.key,
+      text: text,
+      vowelRu: vowel.ru,
+      vowelEn: vowel.en[0],
+      consRu: consRu,
+      consEn: consEn,
+      dagesh: dagesh,
+      shinDot: shinDot
+    };
+  }
+
   function clearTimers() {
     timers.forEach(function (t) { clearTimeout(t); });
     timers = [];
@@ -871,6 +1080,7 @@
   }
 
   function pool() {
+    if (nikudActive()) return BASIC_LETTERS;
     return store.settings.finals ? ALL_LETTERS : BASIC_LETTERS;
   }
   function isInPool(key) {
@@ -881,21 +1091,26 @@
     return screenQuiz.classList.contains('active');
   }
   function acceptedFor(letter) {
+    if (nikudActive() && currentSyllable) {
+      return syllableAnswers(currentSyllable).map(normNikud);
+    }
     const arr = store.settings.mode === 'name' ? locAliases(letter) : locSoundAliases(letter);
     return arr.map(norm);
   }
 
   function statOf(key) {
-    const s = store.letters[key];
+    const bucket = lettersBucket();
+    const s = bucket[key];
     const c = s ? (s.c || 0) : 0;
     const w = s ? (s.w || 0) : 0;
     const total = c + w;
     return { c: c, w: w, total: total, rate: total ? Math.round(c / total * 100) : null };
   }
   function addLetterStat(key, ok) {
-    if (!store.letters[key]) store.letters[key] = { c: 0, w: 0 };
-    if (ok) store.letters[key].c++;
-    else store.letters[key].w++;
+    const bucket = lettersBucket();
+    if (!bucket[key]) bucket[key] = { c: 0, w: 0 };
+    if (ok) bucket[key].c++;
+    else bucket[key].w++;
   }
   function masteryClass(key) {
     const s = statOf(key);
@@ -1017,7 +1232,7 @@
   function popSrs() {
     for (let i = 0; i < srs.length; i++) srs[i].delay -= 1;
     const idx = srs.findIndex(function (it) { return it.delay <= 0; });
-    if (idx >= 0) return srs.splice(idx, 1)[0].key;
+    if (idx >= 0) return srs.splice(idx, 1)[0];
     return null;
   }
 
@@ -1028,15 +1243,23 @@
     pausedLeft = null;
 
     let forced = popSrs();
-    while (forced && !isInPool(forced)) forced = popSrs();
-    current = BY_KEY[forced || pickKey()];
+    while (forced && !isInPool(forced.key)) forced = popSrs();
+    if (forced) {
+      current = BY_KEY[forced.key];
+      currentSyllable = nikudActive()
+        ? (forced.syllable || makeSyllable(current))
+        : null;
+    } else {
+      current = BY_KEY[pickKey()];
+      currentSyllable = nikudActive() ? makeSyllable(current) : null;
+    }
     if (!current) return;
 
     locked = false;
     quizInput.value = '';
     quizInput.disabled = false;
     quizCard.classList.remove('correct', 'wrong');
-    quizGlyph.textContent = current.glyph;
+    quizGlyph.textContent = currentSyllable ? currentSyllable.text : current.glyph;
     quizGlyph.classList.remove('glyph-in');
     void quizGlyph.offsetWidth;
     quizGlyph.classList.add('glyph-in');
@@ -1104,9 +1327,14 @@
 
     quizCard.classList.add('wrong');
     quizInput.disabled = true;
-    quizAnswer.textContent = store.settings.mode === 'name'
-      ? locName(current)
-      : locName(current) + ' · ' + t('soundPrefix') + locSound(current);
+    if (nikudActive() && currentSyllable) {
+      const expected = syllableAnswers(currentSyllable)[0] || '';
+      quizAnswer.textContent = currentSyllable.text + ' · ' + expected;
+    } else {
+      quizAnswer.textContent = store.settings.mode === 'name'
+        ? locName(current)
+        : locName(current) + ' · ' + t('soundPrefix') + locSound(current);
+    }
 
     session.streak = 0;
     session.total += 1;
@@ -1114,8 +1342,15 @@
     if (session.score > store.highScore) store.highScore = session.score;
     saveStore();
 
-    if (!srs.some(function (it) { return it.key === current.key; })) {
-      srs.push({ key: current.key, delay: 2 });
+    const srsKey = current.key;
+    const srsSyllable = nikudActive() ? currentSyllable : null;
+    const already = srs.some(function (it) {
+      if (it.key !== srsKey) return false;
+      if (!srsSyllable) return !it.syllable;
+      return it.syllable && it.syllable.text === srsSyllable.text;
+    });
+    if (!already) {
+      srs.push({ key: srsKey, syllable: srsSyllable, delay: 2 });
     }
 
     beep(false);
@@ -1131,7 +1366,8 @@
 
   function onInput() {
     if (locked || !current) return;
-    const val = norm(quizInput.value);
+    if (!store.settings.autoCheck) return;
+    const val = nikudActive() ? normNikud(quizInput.value) : norm(quizInput.value);
     if (!val) return;
 
     const accepted = acceptedFor(current);
@@ -1141,6 +1377,22 @@
     }
     const isPrefix = accepted.some(function (a) { return a.indexOf(val) === 0; });
     if (!isPrefix) handleWrong();
+  }
+
+  function submitManualAnswer() {
+    if (locked || !current) return;
+    const val = nikudActive() ? normNikud(quizInput.value) : norm(quizInput.value);
+    if (!val) { focusInput(); return; }
+    if (acceptedFor(current).indexOf(val) !== -1) handleCorrect();
+    else handleWrong();
+  }
+
+  function toggleAutoCheck() {
+    store.settings.autoCheck = !store.settings.autoCheck;
+    saveStore();
+    syncControls();
+    updateModeUI();
+    focusInput();
   }
 
   
@@ -1195,10 +1447,17 @@
 
   function updateModeUI() {
     const isName = store.settings.mode === 'name';
-    quizInput.placeholder = t(isName ? 'placeholderName' : 'placeholderSound');
+    const nikud = nikudActive();
+    const autoCheck = !!store.settings.autoCheck;
+    quizInput.placeholder = t(nikud ? 'placeholderSyllable' : (isName ? 'placeholderName' : 'placeholderSound'));
     quizInput.lang = lang() === 'en' ? 'en' : 'ru';
-    modeHint.textContent = t(isName ? 'modeHintName' : 'modeHintSound');
-    inputHint.textContent = t(isName ? 'inputHintName' : 'inputHintSound');
+    if (autoCheck) {
+      modeHint.textContent = t(nikud ? 'modeHintSyllable' : (isName ? 'modeHintName' : 'modeHintSound'));
+      inputHint.textContent = t(nikud ? 'inputHintSyllable' : (isName ? 'inputHintName' : 'inputHintSound'));
+    } else {
+      modeHint.textContent = t(nikud ? 'modeHintManualSyllable' : (isName ? 'modeHintManualName' : 'modeHintManualSound'));
+      inputHint.textContent = t('inputHintManual');
+    }
     subtabEls.forEach(function (el) {
       el.classList.toggle('active', el.dataset.mode === store.settings.mode);
     });
@@ -1274,6 +1533,30 @@
     return card;
   }
 
+  function renderNikudTable() {
+    const box = $('nikud-table');
+    if (!box) return;
+    box.innerHTML = '';
+    NIKUD_VOWELS.forEach(function (v) {
+      const cell = document.createElement('div');
+      cell.className = 'nikud-cell';
+      const sign = document.createElement('div');
+      sign.className = 'nikud-sign';
+      sign.dir = 'rtl';
+      sign.textContent = 'א' + v.char;
+      const name = document.createElement('div');
+      name.className = 'nikud-name';
+      name.textContent = lang() === 'en' ? v.nameEn : v.nameRu;
+      const sound = document.createElement('div');
+      sound.className = 'nikud-sound';
+      sound.textContent = lang() === 'en' ? v.en[0] : v.ru;
+      cell.appendChild(sign);
+      cell.appendChild(name);
+      cell.appendChild(sound);
+      box.appendChild(cell);
+    });
+  }
+
   function renderAlphabet() {
     alphaGridBasic.innerHTML = '';
     sortLetters(BASIC_LETTERS).forEach(function (l) {
@@ -1298,9 +1581,22 @@
     });
     sortBtn.textContent = sortLabel();
     sortBtn.classList.toggle('active-sort', store.settings.sort !== 'default');
+    renderNikudTable();
+  }
+
+  function applyScript() {
+    const cursive = store.settings.script === 'cursive';
+    document.documentElement.classList.toggle('script-cursive', cursive);
+    document.documentElement.classList.toggle('nikud-on', nikudActive());
   }
 
   function syncControls() {
+    applyScript();
+    const autoCheck = !!store.settings.autoCheck;
+    autoCheckBtn.textContent = autoCheck ? t('autoCheckOn') : t('autoCheckOff');
+    autoCheckBtn.classList.toggle('on', autoCheck);
+    checkBtn.style.display = autoCheck ? 'none' : '';
+    quizInput.enterKeyHint = autoCheck ? 'done' : 'send';
     const limit = store.settings.timeLimit;
     slider.value = String(limit);
     timeLabel.textContent = limit.toFixed(1) + ' ' + t('seconds');
@@ -1311,11 +1607,33 @@
     timerControls.style.display = timer ? '' : 'none';
     timerNote.style.display = timer ? 'none' : '';
 
+    const script = store.settings.script === 'cursive';
+    scriptBtn.textContent = script ? t('scriptCursive') : t('scriptPrint');
+    scriptBtn.classList.toggle('on', script);
+
+    const nikud = !!store.settings.nikud;
+    nikudBtn.textContent = nikud ? t('nikudOn') : t('nikudOff');
+    nikudBtn.classList.toggle('on', nikud);
+    const nameMode = store.settings.mode === 'name';
+    nikudBtn.disabled = nameMode;
+    nikudBtn.classList.toggle('disabled', nameMode);
+
     const finals = store.settings.finals;
+    const finalsDisabled = nikudActive();
     finalsBtn.textContent = finals ? t('finalsOn') : t('finalsOff');
     finalsBtn.classList.toggle('on', finals);
+    finalsBtn.disabled = finalsDisabled;
+    finalsBtn.classList.toggle('disabled', finalsDisabled);
     alphaFinalsBtn.textContent = finals ? t('finalsOn') : t('finalsOff');
     alphaFinalsBtn.classList.toggle('active-sort', finals);
+    alphaFinalsBtn.disabled = finalsDisabled;
+    alphaFinalsBtn.classList.toggle('disabled', finalsDisabled);
+
+    let note = '';
+    if (nameMode) note = t('nikudNameHint');
+    else if (finalsDisabled) note = t('finalsNikudHint');
+    nikudNote.textContent = note;
+    nikudNote.style.display = note ? '' : 'none';
 
     subtabEls.forEach(function (el) {
       el.classList.toggle('active', el.dataset.mode === store.settings.mode);
@@ -1346,13 +1664,39 @@
     store.settings.mode = mode;
     saveStore();
     srs = [];
+    buildHud();
+    syncControls();
     startRound();
   }
 
   function toggleFinals() {
+    if (nikudActive()) return;
     store.settings.finals = !store.settings.finals;
     saveStore();
     srs = [];
+    buildHud();
+    syncControls();
+    updateHeader();
+    startRound();
+    if (!isQuizActive()) renderAlphabet();
+  }
+
+  function toggleScript() {
+    store.settings.script = store.settings.script === 'cursive' ? 'print' : 'cursive';
+    saveStore();
+    applyScript();
+    syncControls();
+    updateHud();
+    updateHeader();
+    if (!isQuizActive()) renderAlphabet();
+  }
+
+  function toggleNikud() {
+    if (store.settings.mode !== 'sound') return;
+    store.settings.nikud = !store.settings.nikud;
+    saveStore();
+    srs = [];
+    applyScript();
     buildHud();
     syncControls();
     updateHeader();
@@ -1481,6 +1825,8 @@
 
   finalsBtn.addEventListener('click', toggleFinals);
   alphaFinalsBtn.addEventListener('click', toggleFinals);
+  scriptBtn.addEventListener('click', toggleScript);
+  nikudBtn.addEventListener('click', toggleNikud);
   timerBtn.addEventListener('click', toggleTimer);
   themeBtn.addEventListener('click', toggleTheme);
   sortBtn.addEventListener('click', cycleSort);
@@ -1490,14 +1836,21 @@
     if (e.key === 'Enter') {
       e.preventDefault();
       if (locked) return;
-      onInput();
-      if (!locked) handleWrong();
+      if (store.settings.autoCheck) {
+        onInput();
+        if (!locked) handleWrong();
+      } else {
+        submitManualAnswer();
+      }
     }
   });
 
   skipBtn.addEventListener('click', function () {
     handleWrong();
   });
+
+  checkBtn.addEventListener('click', submitManualAnswer);
+  autoCheckBtn.addEventListener('click', toggleAutoCheck);
 
   resetBtn.addEventListener('click', resetProgress);
 
@@ -1531,6 +1884,14 @@
   });
 
   
+  function initCursiveFont() {
+    const el = document.getElementById('cursive-font-face');
+    if (!el) return;
+    if (el.textContent.indexOf('__CURSIVE_WOFF2_BASE64__') !== -1) {
+      document.documentElement.style.setProperty('--hebrew-cursive', 'var(--hebrew)');
+    }
+  }
+
   let lastTouchEnd = 0;
   document.addEventListener('touchend', function (e) {
     const now = Date.now();
@@ -1539,6 +1900,7 @@
   }, { passive: false });
 
   
+  initCursiveFont();
   applyTheme(currentTheme, false);
   buildHud();
   applyLanguage();
