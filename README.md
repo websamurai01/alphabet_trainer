@@ -2,7 +2,7 @@
 
 [Open the app](https://websamurai01.github.io/alphabet_trainer) · [Русская версия](README_RU.md)
 
-A single-file, offline trainer for learning the names and sounds of the Hebrew letters. It runs in a modern browser with no installation, build step, or internet connection.
+An offline trainer for learning the names and sounds of the Hebrew letters. It runs in a modern browser with no installation, build step, or internet connection.
 
 ---
 
@@ -173,7 +173,7 @@ The app intentionally does not use speech synthesis. Only short audio beeps and 
 Private mode or blocked `localStorage` may prevent progress from surviving after the tab is closed.
 
 **Does it work offline?**
-Yes. All code, styles, and data live in the single HTML file.
+Yes. All code, styles, and data live in files next to `index.html`.
 
 **Why was my letter marked wrong immediately?**
 The typed text stopped being a valid prefix of every accepted answer. For example, `alp` for “alef” fails immediately. This is intentional instant feedback.
@@ -185,7 +185,7 @@ Session accuracy covers only the current run. Header progress is long-term maste
 
 ## Technical notes
 
-- One HTML file, no dependencies, no build step.
+- No dependencies, no build step: `index.html`, `css/style.css`, `js/app.js`.
 - Vanilla JavaScript.
 - `localStorage` keys:
   - `hebrew_alphabet_trainer_v1` — settings, score, and letter statistics;
